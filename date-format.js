@@ -1,15 +1,15 @@
 var patternStr = "yyyy-MM-dd hh:mm:ss",
     objMirror = require("./obj-mirror");
 
-function BGDate( dateObj, pattern ) {
-    var self = objMirror( BGDate );
+function DateFormat( dateObj, pattern ) {
+    var self = objMirror( DateFormat );
 
     self.pattern = pattern || patternStr;
     if (!dateObj) {
         self._date = new Date;
         return self;
     }
-    if (dateObj instanceof BGDate)
+    if (dateObj instanceof DateFormat)
         self._date = dateObj._date;
     else if (dateObj instanceof Date)
         self._date = dateObj;
@@ -18,33 +18,33 @@ function BGDate( dateObj, pattern ) {
     return self;
 }
 
-BGDate.prototype.toString = function(pattern) {
+DateFormat.prototype.toString = function(pattern) {
     return (pattern || this.pattern).replace(/(\%Y)|(YYYY)/i, this._date.getFullYear()).replace(/(\%M)|(MM)/, this.zeroize.call(this._date.getMonth() + 1, 2)).replace(/(\%D)|(DD)/i, this.zeroize.call(this._date.getDate(), 2)).replace(/(\%H)|(HH)/i, this.zeroize.call(this._date.getHours(), 2)).replace(/(\%m)|(mm)/, this.zeroize.call(this._date.getMinutes(), 2)).replace(/(\%S)|(SS)/i, this.zeroize.call(this._date.getSeconds(), 2));
 }
-BGDate.prototype.reset = function() {
+DateFormat.prototype.reset = function() {
     initDate.apply(this, arguments);
     return this;
 }
-BGDate.prototype.dayofmm = 86400000;
-BGDate.prototype.hourofmm = 3600000;
-BGDate.prototype.minuteofmm = 60000;
-BGDate.prototype.addDay = function(dd) {
+DateFormat.prototype.dayofmm = 86400000;
+DateFormat.prototype.hourofmm = 3600000;
+DateFormat.prototype.minuteofmm = 60000;
+DateFormat.prototype.addDay = function(dd) {
     this._date.setTime((this._date.getTime() + dd * this.dayofmm).toFixed(0));
     return this;
 }
-BGDate.prototype.addHour = function(hh) {
+DateFormat.prototype.addHour = function(hh) {
     this._date.setTime((this._date.getTime() + hh * this.hourofmm).toFixed(0));
     return this;
 }
-BGDate.prototype.addMinu = function(mm) {
+DateFormat.prototype.addMinu = function(mm) {
     this._date.setTime((this._date.getTime() + mm * this.minuteofmm).toFixed(0));
     return this;
 }
-BGDate.prototype.addMonth = function(m) {
+DateFormat.prototype.addMonth = function(m) {
     this._date.setMonth((this._date.getMonth() + m).toFixed());
     return this;
 }
-BGDate.prototype.zeroize = function(a) {
+DateFormat.prototype.zeroize = function(a) {
     var v = this.toString(),
         len = v.length;
     return (a -= len) > 0 ? new Array(++a).join(0).concat(v) : v;
@@ -56,7 +56,7 @@ function initDate(__pattern, __date) {
         this._date = new Date;
         return;
     }
-    if (__date instanceof BGDate)
+    if (__date instanceof DateFormat)
         this._date = __date._date;
     else if (__date instanceof Date)
         this._date = __date;
@@ -89,4 +89,4 @@ function parseStr2Date(str) {
     return _date;
 }
 
-module.exports = BGDate;
+module.exports = DateFormat;
