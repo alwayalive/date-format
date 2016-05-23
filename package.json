@@ -1,15 +1,15 @@
 {
-  "name": "bgdate",
+  "name": "date-format",
   "version": "1.0.0",
   "description": "使用各种pattern得到所需的日期格式。",
-  "main": "bgdate.js",
+  "main": "date-format.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "start": "webpack --progress --colors --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alwayalive/BGDate.git"
+    "url": "git+https://github.com/alwayalive/date-format.git"
   },
   "dependencies": {
     "babel-core": "^6.8.0",
@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alwayalive/BGDate/issues"
+    "url": "https://github.com/alwayalive/date-format/issues"
   },
-  "homepage": "https://github.com/alwayalive/BGDate#readme"
+  "homepage": "https://github.com/alwayalive/date-format#readme"
 }
