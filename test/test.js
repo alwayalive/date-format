@@ -15,7 +15,6 @@ describe("dateFormat test",function(){
 			assert.strictEqual( dataStr.toString("yyyy年MM月dd日") , "2011年01月10日" );
 			assert.strictEqual( dataStr.toString("%y年%M月%d日") , "2011年01月10日" );
 			assert.strictEqual( dataStr.toString("MM/dd") , "01/10" );
-			//...etc
 		});
 	});
 	//操作时间
@@ -49,5 +48,15 @@ describe("dateFormat test",function(){
 			assert.strictEqual( dataStr.addMinu(-10).toString() , "2011-05-10 12:10:00" );
 		});
 
+	});
+
+	describe("reset dateFormat",function(){
+		it("reset()",function(){
+			var dataStr = dateFormat("2011-01-10");
+			assert.strictEqual( dataStr.toString() , "2011-01-10 00:00:00" );
+
+			dataStr.reset("2015/06/14 12:19:00");
+			assert.strictEqual( dataStr.toString() , "2015-06-14 12:19:00" );
+		});
 	});
 });

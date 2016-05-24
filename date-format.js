@@ -1,8 +1,8 @@
 var patternStr = "yyyy-MM-dd hh:mm:ss",
     objMirror = require("./obj-mirror");
 
-function DateFormat( dateObj, pattern ) {
-    var self = objMirror( DateFormat );
+function DateFormat(dateObj, pattern) {
+    var self = objMirror(DateFormat);
 
     self.pattern = pattern || patternStr;
     if (!dateObj) {
@@ -50,18 +50,18 @@ DateFormat.prototype.zeroize = function(a) {
     return (a -= len) > 0 ? new Array(++a).join(0).concat(v) : v;
 }
 
-function initDate(__pattern, __date) {
-    this.pattern = __pattern || pattern;
-    if (!__date) {
+function initDate(date, pattern) {
+    this.pattern = pattern || patternStr;
+    if (!date) {
         this._date = new Date;
         return;
     }
-    if (__date instanceof DateFormat)
-        this._date = __date._date;
-    else if (__date instanceof Date)
-        this._date = __date;
+    if (date instanceof DateFormat)
+        this._date = date._date;
+    else if (date instanceof Date)
+        this._date = date;
     else
-        this._date = parseStr2Date(__date);
+        this._date = parseStr2Date(date);
 }
 
 function parseStr2Date(str) {
@@ -71,20 +71,23 @@ function parseStr2Date(str) {
         _date.setTime(str);
     } else {
         dateFlied = str.split(/\D+/);
-        if (!!dateFlied[0])
+        if (!!dateFlied[0]) {
             _date.setFullYear(dateFlied[0]);
-        if (!!dateFlied[1])
-            _date.setMonth(dateFlied[1] - 1);
-        if (!!dateFlied[2])
-            _date.setDate(dateFlied[2]);
-        if (!!dateFlied[3])
-            _date.setHours(dateFlied[3]);
-        if (!!dateFlied[4])
-            _date.setMinutes(dateFlied[4]);
-        if (!!dateFlied[5])
-            _date.setSeconds(dateFlied[5]);
-        if (!!dateFlied[6])
-            _date.setMilliseconds(dateFlied[6]);
+            _date.setMonth((dateFlied[1] - 1) || 0);
+            _date.setDate(dateFlied[2] || 1);
+            _date.setHours(dateFlied[3] || 0);
+            _date.setMinutes(dateFlied[4] || 0);
+            _date.setSeconds(dateFlied[5] || 0);
+            _date.setMilliseconds(dateFlied[6] || 0);
+        }
+        // if (!!dateFlied[3])
+        //     _date.setHours(dateFlied[3]);
+        // if (!!dateFlied[4])
+        //     _date.setMinutes(dateFlied[4]);
+        // if (!!dateFlied[5])
+        //     _date.setSeconds(dateFlied[5]);
+        // if (!!dateFlied[6])
+        //     _date.setMilliseconds(dateFlied[6]);
     }
     return _date;
 }
